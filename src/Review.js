@@ -5,7 +5,7 @@ import { FaChevronLeft, FaChevronRight, FaQuoteRight } from 'react-icons/fa';
 const Review = () => {
     let initialPosition = 0;
     const [position, setPosition] = useState(initialPosition)
-    const [peopleState, _setPeopleState] = useState(people);
+    const {name, job, image, text} = people[position]
 
     const prevReview = () => {
         if (position > initialPosition) {
@@ -16,7 +16,7 @@ const Review = () => {
     };
 
     const nextReview = () => {
-        if (position < peopleState.length -1) {
+        if (position < people.length -1) {
             let actualPosition = position;
             let newPosition = ++ actualPosition;
             setPosition(newPosition);
@@ -24,7 +24,7 @@ const Review = () => {
     };
 
     const randReview = () => {
-        const randomPosition = Math.floor(Math.random() * peopleState.length);
+        const randomPosition = Math.floor(Math.random() * people.length);
         if (randomPosition !== position) {
             setPosition(randomPosition);
         }
@@ -32,22 +32,22 @@ const Review = () => {
 
     return (
         
-        <section className='review'>
-                <FaQuoteRight className='quote-icon'/>
+        <article className='review'>
                 <div className='img-container'>
-                    <img className='person-img' src={peopleState[position].image}/>
+                    <img className='person-img' src={image}/>
+                    <span className='quote-icon'>
+                        <FaQuoteRight />
+                    </span>
                 </div>
-                <h4 className='author'>
-                    {peopleState[position].name}
-                </h4>
-                <p className='job'>
-                    {peopleState[position].job}
-                </p>
-                <p className='info'>{peopleState[position].text}</p>
-                <button onClick={prevReview} className='prev-btn'><FaChevronLeft/></button>
-                <button onClick={nextReview} className='next-btn'><FaChevronRight/></button>
+                <h4 className='author'>{name}</h4>
+                <p className='job'>{job}</p>
+                <p className='info'>{text}</p>
+                <div className='button-container'>
+                    <button onClick={prevReview} className='prev-btn'><FaChevronLeft/></button>
+                    <button onClick={nextReview} className='next-btn'><FaChevronRight/></button>
+                </div>
                 <button onClick={randReview} className='random-btn'>Suprise Me!</button>
-        </section>
+        </article>
     )
 };
 
